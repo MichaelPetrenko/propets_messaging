@@ -2,46 +2,46 @@ package telran.messaging.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import telran.messaging.api.PageableDto;
+import telran.messaging.api.ResponcePageableDto;
 import telran.messaging.api.RequestDto;
-import telran.messaging.api.ResponceDto;
+import telran.messaging.api.ResponceMessagingDto;
 import telran.messaging.service.interfaces.MessageManagement;
 
 @Service
 public class MessageManagementMongo implements MessageManagement {
 
 	@Override
-	public ResponceDto createPost(RequestDto dto) {
+	public ResponceMessagingDto createPost(RequestDto dto) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponceDto update(RequestDto dto) {
+	public ResponceMessagingDto update(RequestDto dto) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponceDto delete(String id) {
+	public ResponceMessagingDto delete(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponceDto getPostById(String id) {
+	public ResponceMessagingDto getPostById(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public PageableDto viewPostPageable(int items, int currentPage) {
+	public ResponcePageableDto viewPostPageable(int items, int currentPage) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponceDto[] getUserData(String[] listID) {
+	public ResponceMessagingDto[] getUserData(String[] listID) {
 		// TODO Auto-generated method stub
 		return null;
 	}

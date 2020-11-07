@@ -1,16 +1,16 @@
 package telran.messaging.service.interfaces;
 
-import telran.messaging.api.PageableDto;
+import telran.messaging.api.ResponcePageableDto;
 import telran.messaging.api.RequestDto;
-import telran.messaging.api.ResponceDto;
+import telran.messaging.api.ResponceMessagingDto;
 
 public interface MessageManagement {
 	
-	ResponceDto createPost(RequestDto dto); //get ret x-token
-	ResponceDto update(RequestDto dto); //get ret x-token
-	ResponceDto delete(String id); //get ret x-token
-	ResponceDto getPostById(String id); //get ret x-token;
-	PageableDto viewPostPageable(int items, int currentPage); //get ret x-token;
-	ResponceDto[] getUserData(String[] listID);
+	ResponceMessagingDto createPost(RequestDto dto); //get ret x-token
+	ResponceMessagingDto update(RequestDto dto); //get ret x-token
+	ResponceMessagingDto delete(String id); //get ret x-token
+	ResponceMessagingDto getPostById(String id); //get ret x-token;
+	ResponcePageableDto viewPostPageable(int items, int currentPage); //get ret x-token;
+	ResponceMessagingDto[] getUserData(String[] listID);
 	
 }

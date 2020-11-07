@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import telran.messaging.api.MessageApiConstants;
-import telran.messaging.api.PageableDto;
+import telran.messaging.api.ResponcePageableDto;
 import telran.messaging.api.RequestDto;
-import telran.messaging.api.ResponceDto;
+import telran.messaging.api.ResponceMessagingDto;
 import telran.messaging.service.interfaces.MessageManagement;
 
 @RestController
@@ -22,32 +22,32 @@ public class MessageController {
 	MessageManagement messageService;
 	
 	@PostMapping(value = MessageApiConstants.CREATE_POST)
-	ResponceDto createPost(@RequestBody RequestDto dto) {
+	ResponceMessagingDto createPost(@RequestBody RequestDto dto) {
 		return messageService.createPost(dto);
 	};
 	
 	@PutMapping(value = MessageApiConstants.UPDATE_POST)
-	ResponceDto update(@RequestBody RequestDto dto) {
+	ResponceMessagingDto update(@RequestBody RequestDto dto) {
 		return messageService.update(dto);
 	}
 	
 	@DeleteMapping(value = MessageApiConstants.DELETE_POST)
-	ResponceDto delete(@PathVariable String postID) { 
+	ResponceMessagingDto delete(@PathVariable String postID) { 
 		return messageService.delete(postID);
 	}
 	
 //	"/message/en/v1/{id}";
 	@GetMapping(value = MessageApiConstants.GET_POST_BY_ID)
-	ResponceDto getPostById(@PathVariable String id) {	
+	ResponceMessagingDto getPostById(@PathVariable String id) {	
 		return messageService.getPostById(id);
 	}
 	@GetMapping(value = MessageApiConstants.VIEW_POST_PAGEABLE)
-	PageableDto viewPostPageable(@PathVariable int items, int currentPage) {
+	ResponcePageableDto viewPostPageable(@PathVariable int items, int currentPage) {
 		return messageService.viewPostPageable(items, currentPage);
 	}
 	
 	@PostMapping(value = MessageApiConstants.GET_USER_DATA)
-	ResponceDto[] getUserData(String[] listID) {
+	ResponceMessagingDto[] getUserData(String[] listID) {
 		return getUserData(listID);
 	}
 	
