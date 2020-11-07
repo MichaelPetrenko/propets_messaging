@@ -1,4 +1,4 @@
-package telran.lostfound.api;
+package telran.messaging.api;
 
 public class RequestDto {
 

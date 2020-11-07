@@ -1,11 +1,11 @@
-package telran.lostfound.service.impl;
+package telran.messaging.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import telran.lostfound.api.PageableDto;
-import telran.lostfound.api.RequestDto;
-import telran.lostfound.api.ResponceDto;
-import telran.lostfound.service.interfaces.MessageManagement;
+import telran.messaging.api.PageableDto;
+import telran.messaging.api.RequestDto;
+import telran.messaging.api.ResponceDto;
+import telran.messaging.service.interfaces.MessageManagement;
 
 @Service
 public class MessageManagementMongo implements MessageManagement {
