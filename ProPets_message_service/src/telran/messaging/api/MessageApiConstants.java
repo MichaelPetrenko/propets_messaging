@@ -2,7 +2,7 @@ package telran.messaging.api;
 
 public interface MessageApiConstants {
 	
-	String CREATE_POST = 						"/message/en/v1/";
+	String CREATE_POST = 						"/message/en/v1/login/"; // - Attention! changed from /v1/login/
 //	String CREATE_POST = 						"/message/en/v1/{login}";
 	
 	String UPDATE_POST = 						"/message/en/v1/";

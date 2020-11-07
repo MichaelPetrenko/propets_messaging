@@ -6,7 +6,7 @@ import telran.messaging.api.ResponceMessagingDto;
 
 public interface MessageManagement {
 	
-	ResponceMessagingDto createPost(RequestDto dto); //get ret x-token
+	ResponceMessagingDto createPost(RequestDto dto, String userLogin, String userName, String avatar); //get ret x-token
 	ResponceMessagingDto update(RequestDto dto); //get ret x-token
 	ResponceMessagingDto delete(String id); //get ret x-token
 	ResponceMessagingDto getPostById(String id); //get ret x-token;

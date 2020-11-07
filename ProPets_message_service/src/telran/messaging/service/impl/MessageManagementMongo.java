@@ -1,19 +1,40 @@
 package telran.messaging.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import telran.messaging.api.ResponcePageableDto;
+import telran.messaging.api.codes.NoContentException;
+import telran.messaging.dao.MessagingRepository;
+import telran.messaging.domain.entities.MessagingEntity;
 import telran.messaging.api.RequestDto;
 import telran.messaging.api.ResponceMessagingDto;
 import telran.messaging.service.interfaces.MessageManagement;
 
 @Service
 public class MessageManagementMongo implements MessageManagement {
+	
+	@Autowired
+	MessagingRepository repo;
 
 	@Override
-	public ResponceMessagingDto createPost(RequestDto dto) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResponceMessagingDto createPost(RequestDto dto, String userLogin, String userName, String avatar) {
+		
+		System.out.println(" = = = createPost start method");
+		
+		if (dto == null) {
+			throw new NoContentException();
+		}
+		
+		// mb here will be another checks on other fields;
+		
+		MessagingEntity entity = new MessagingEntity(userLogin, userName, avatar, dto.text, dto.images);
+		repo.save(entity);
+		
+		ResponceMessagingDto resp = new ResponceMessagingDto(entity.id, entity.userLogin, entity.userName,
+				entity.avatar, entity.datePost, entity.text, entity.images);
+		
+		return resp;
 	}
 
 	@Override

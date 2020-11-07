@@ -20,9 +20,6 @@ public class MessagingEntity {
 	public String getId() {
 		return id;
 	}
-	public void setId(String id) {
-		this.id = id;
-	}
 	public String getUserLogin() {
 		return userLogin;
 	}
@@ -60,10 +57,9 @@ public class MessagingEntity {
 		this.images = images;
 	}
 	
-	public MessagingEntity(String id, String userLogin, String userName, String avatar, String datePost, String text,
+	public MessagingEntity(String userLogin, String userName, String avatar, String text,
 			String[] images) {
 		super();
-		this.id = id;
 		this.userLogin = userLogin;
 		this.userName = userName;
 		this.avatar = avatar;

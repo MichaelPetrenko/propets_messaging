@@ -10,14 +10,14 @@ public class ResponceMessagingDto {
 	public String text;
 	public String[] images;
 	
-	public ResponceMessagingDto(String id, String userLogin, String userName, String avatar, String timeStamp, String text,
+	public ResponceMessagingDto(String id, String userLogin, String userName, String avatar, String datePost, String text,
 			String[] images) {
 		super();
 		this.id = id;
 		this.userLogin = userLogin;
 		this.userName = userName;
 		this.avatar = avatar;
-		this.datePost = timeStamp;
+		this.datePost = datePost;
 		this.text = text;
 		this.images = images;
 	}
