@@ -1,5 +1,8 @@
 package telran.messaging.dao;
 
+import java.util.List;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 //import java.util.List;
@@ -10,7 +13,7 @@ import telran.messaging.domain.entities.MessagingEntity;
 //Можно не писать аннотацию, потому-что аннотация есть в монго репозиторий
 public interface MessagingRepository extends MongoRepository<MessagingEntity, String> {
 
-//	List<MessagingEntity> findAllByTypePost(boolean typePost, Pageable pageable);
+//	List<MessagingEntity> findAllBy(Pageable pageable);
 //	List<MessagingEntity> findAllByTypePost(boolean typePost);
 	
 }

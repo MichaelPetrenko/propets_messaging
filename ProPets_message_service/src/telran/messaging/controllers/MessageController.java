@@ -40,19 +40,20 @@ public class MessageController {
 		return messageService.delete(id);
 	}
 	
-////	"/message/en/v1/{id}";
-//	@GetMapping(value = MessageApiConstants.GET_POST_BY_ID)
-//	ResponceMessagingDto getPostById(@PathVariable String id) {	
-//		return messageService.getPostById(id);
-//	}
-//	@GetMapping(value = MessageApiConstants.VIEW_POST_PAGEABLE)
-//	ResponcePageableDto viewPostPageable(@PathVariable int items, int currentPage) {
-//		return messageService.viewPostPageable(items, currentPage);
-//	}
-//	
-//	@PostMapping(value = MessageApiConstants.GET_USER_DATA)
-//	ResponceMessagingDto[] getUserData(String[] listID) {
-//		return getUserData(listID);
-//	}
+	@GetMapping(value = MessageApiConstants.GET_POST_BY_ID)
+	ResponceMessagingDto getPostById(@PathVariable("idPost") String idPost) {	
+		return messageService.getPostById(idPost);
+	}
+	
+	@GetMapping(value = MessageApiConstants.VIEW_POST_PAGEABLE)
+	ResponcePageableDto viewPostPageable(@RequestParam("itemsOnPage") int itemsOnPage, @RequestParam("currentPage") int currentPage) {
+		return messageService.viewPostPageable(itemsOnPage, currentPage);
+	}
+	
+	@PostMapping(value = MessageApiConstants.GET_USER_DATA)
+	ResponceMessagingDto[] getUserData(@RequestBody String[] listID) {
+		System.out.println("============== CONTROLLER=====================================");
+		return getUserData(listID);
+	}
 	
 }

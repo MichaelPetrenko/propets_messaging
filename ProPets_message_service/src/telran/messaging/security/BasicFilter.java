@@ -26,6 +26,8 @@ public class BasicFilter implements Filter {
 		if (
 			(path.matches("/message/en/v1/login/[^/]+"))
 		  ||(path.matches("/message/en/v1/[^/]+") && request.getMethod().equalsIgnoreCase("PUT"))
+		  ||(path.matches("/message/en/v1/[^/]+") && request.getMethod().equalsIgnoreCase("GET"))
+		  ||(path.matches("/message/en/v1/view/"))
 		  
 		 ) {
 

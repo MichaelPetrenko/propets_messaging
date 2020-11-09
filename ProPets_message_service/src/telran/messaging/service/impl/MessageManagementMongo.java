@@ -1,9 +1,16 @@
 package telran.messaging.service.impl;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import com.sun.xml.internal.stream.Entity;
 
 import telran.messaging.api.ResponcePageableDto;
 import telran.messaging.api.codes.NoContentException;
@@ -20,6 +27,12 @@ public class MessageManagementMongo implements MessageManagement {
 	@Autowired
 	MessagingRepository repo;
 
+	private ResponceMessagingDto entityToResponseDto(MessagingEntity entity) {
+		ResponceMessagingDto dto = new ResponceMessagingDto(entity.id, entity.userLogin, entity.userName,
+				entity.avatar, entity.datePost, entity.text, entity.images);
+		return dto;
+	}
+	
 	@Override
 	public ResponceMessagingDto createPost(RequestCreatePostDto dto, String userLogin) {
 		
@@ -82,20 +95,45 @@ public class MessageManagementMongo implements MessageManagement {
 
 	@Override
 	public ResponceMessagingDto getPostById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		MessagingEntity entity =  repo.findById(id).orElse(null);
+		if(entity==null) {
+			throw new NotExistsException();
+		}
+		ResponceMessagingDto resp = new ResponceMessagingDto(entity.id, entity.userLogin, entity.userName,
+				entity.avatar, entity.datePost, entity.text, entity.images);
+		
+		return resp;
 	}
 
 	@Override
 	public ResponcePageableDto viewPostPageable(int items, int currentPage) {
-		// TODO Auto-generated method stub
-		return null;
+		Pageable pageable = PageRequest.of(currentPage, items);
+		repo.findAll(pageable);
+		
+		int itemsTotal = repo.findAll(pageable).getNumberOfElements();
+		List<MessagingEntity> postsList = repo.findAll(pageable).toList();
+		
+		List<ResponceMessagingDto> res = postsList.stream()
+				.map(post -> entityToResponseDto(post))
+				.collect(Collectors.toList());
+		
+		ResponcePageableDto pDto = new ResponcePageableDto(items, currentPage, itemsTotal, res);
+		return pDto;
 	}
 
 	@Override
 	public ResponceMessagingDto[] getUserData(String[] listID) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ResponceMessagingDto> list = new ArrayList<>();
+		for(int i=0 ; i<listID.length; i++) {
+			System.out.println("==================  "+i);
+			MessagingEntity entity =  repo.findById(listID[i]).orElse(null);
+			if(entity!=null) {
+				ResponceMessagingDto dto = entityToResponseDto(entity);
+				list.add(dto);
+			}
+		}
+		return (ResponceMessagingDto[]) list.toArray();
+//		return null;
 	}
 
 }
