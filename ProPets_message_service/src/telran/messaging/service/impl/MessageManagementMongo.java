@@ -1,13 +1,16 @@
 package telran.messaging.service.impl;
 
+import java.time.Instant;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import telran.messaging.api.ResponcePageableDto;
 import telran.messaging.api.codes.NoContentException;
+import telran.messaging.api.codes.NotExistsException;
 import telran.messaging.dao.MessagingRepository;
 import telran.messaging.domain.entities.MessagingEntity;
-import telran.messaging.api.RequestDto;
+import telran.messaging.api.RequestCreatePostDto;
 import telran.messaging.api.ResponceMessagingDto;
 import telran.messaging.service.interfaces.MessageManagement;
 
@@ -18,17 +21,17 @@ public class MessageManagementMongo implements MessageManagement {
 	MessagingRepository repo;
 
 	@Override
-	public ResponceMessagingDto createPost(RequestDto dto, String userLogin, String userName, String avatar) {
-		
-		System.out.println(" = = = createPost start method");
+	public ResponceMessagingDto createPost(RequestCreatePostDto dto, String userLogin) {
 		
 		if (dto == null) {
-			throw new NoContentException();
+			throw new NoContentException("DTO not exists");
 		}
 		
-		// mb here will be another checks on other fields;
+		if(dto.text.length()==0 || dto.images.length==0) {
+			throw new NoContentException("Text or photos is empty!");
+		}
 		
-		MessagingEntity entity = new MessagingEntity(userLogin, userName, avatar, dto.text, dto.images);
+		MessagingEntity entity = new MessagingEntity(userLogin, dto.userName, dto.avatar, dto.text, dto.images);
 		repo.save(entity);
 		
 		ResponceMessagingDto resp = new ResponceMessagingDto(entity.id, entity.userLogin, entity.userName,
@@ -38,15 +41,43 @@ public class MessageManagementMongo implements MessageManagement {
 	}
 
 	@Override
-	public ResponceMessagingDto update(RequestDto dto) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResponceMessagingDto update(RequestCreatePostDto dto, String id) {
+		
+		if(dto==null || id==null) {
+			throw new NoContentException("DTO or id not exists!");
+		}
+		
+		MessagingEntity entity = repo.findById(id).orElse(null);
+		if(entity==null) {
+			throw new NotExistsException();
+		}
+		
+		entity.setText(dto.text);
+		entity.setImages(dto.images);
+		entity.setUserName(dto.userName);
+		entity.setAvatar(dto.avatar);
+		entity.setDatePost(Instant.now().toString());
+		
+		repo.save(entity);
+		ResponceMessagingDto resp = new ResponceMessagingDto(entity.id, entity.userLogin, entity.userName,
+				entity.avatar, entity.datePost, entity.text, entity.images);
+		
+		return resp;
 	}
 
 	@Override
 	public ResponceMessagingDto delete(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		MessagingEntity entity = repo.findById(id).orElse(null);
+		if(entity==null) {
+			throw new NotExistsException();
+		}
+		
+		repo.deleteById(id);
+		ResponceMessagingDto resp = new ResponceMessagingDto(entity.id, entity.userLogin, entity.userName,
+				entity.avatar, entity.datePost, entity.text, entity.images);
+		
+		return resp;
 	}
 
 	@Override

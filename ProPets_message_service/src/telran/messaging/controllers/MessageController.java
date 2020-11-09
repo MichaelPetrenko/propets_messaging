@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import telran.messaging.api.MessageApiConstants;
 import telran.messaging.api.ResponcePageableDto;
-import telran.messaging.api.RequestDto;
+import telran.messaging.api.RequestCreatePostDto;
 import telran.messaging.api.ResponceMessagingDto;
 import telran.messaging.service.interfaces.MessageManagement;
 
@@ -24,24 +25,21 @@ public class MessageController {
 	MessageManagement messageService;
 	
 	@PostMapping(value = MessageApiConstants.CREATE_POST)
-	ResponceMessagingDto createPost(@RequestBody RequestDto dto, 
+	ResponceMessagingDto createPost(@RequestBody RequestCreatePostDto dto, 
 			@PathVariable("login") String login, HttpServletRequest request) {
-		System.out.println(" = = = createPost Controller");
-		String userName = request.getHeader("X-Username");
-		String avatar = request.getHeader("X-Avatar");
-		return messageService.createPost(dto, login, userName, avatar);
+		return messageService.createPost(dto, login);
 	};
 	
-//	@PutMapping(value = MessageApiConstants.UPDATE_POST)
-//	ResponceMessagingDto update(@RequestBody RequestDto dto) {
-//		return messageService.update(dto);
-//	}
-//	
-//	@DeleteMapping(value = MessageApiConstants.DELETE_POST)
-//	ResponceMessagingDto delete(@PathVariable String postID) { 
-//		return messageService.delete(postID);
-//	}
-//	
+	@PutMapping(value = MessageApiConstants.UPDATE_POST)
+	ResponceMessagingDto update(@RequestBody RequestCreatePostDto dto, @PathVariable("id") String id) {
+		return messageService.update(dto, id);
+	}
+	
+	@DeleteMapping(value = MessageApiConstants.DELETE_POST)
+	ResponceMessagingDto delete(@PathVariable("id") String id) { 
+		return messageService.delete(id);
+	}
+	
 ////	"/message/en/v1/{id}";
 //	@GetMapping(value = MessageApiConstants.GET_POST_BY_ID)
 //	ResponceMessagingDto getPostById(@PathVariable String id) {	
