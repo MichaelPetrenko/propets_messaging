@@ -51,9 +51,8 @@ public class MessageController {
 	}
 	
 	@PostMapping(value = MessageApiConstants.GET_USER_DATA)
-	ResponceMessagingDto[] getUserData(@RequestBody String[] listID) {
-		System.out.println("============== CONTROLLER=====================================");
-		return getUserData(listID);
+	Object[] getUserData(@RequestBody String[] listID) {
+		return messageService.getUserData(listID);
 	}
 	
 }

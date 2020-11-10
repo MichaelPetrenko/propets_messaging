@@ -10,8 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.sun.xml.internal.stream.Entity;
-
 import telran.messaging.api.ResponcePageableDto;
 import telran.messaging.api.codes.NoContentException;
 import telran.messaging.api.codes.NotExistsException;
@@ -122,18 +120,16 @@ public class MessageManagementMongo implements MessageManagement {
 	}
 
 	@Override
-	public ResponceMessagingDto[] getUserData(String[] listID) {
+	public Object[] getUserData(String[] listID) {
 		List<ResponceMessagingDto> list = new ArrayList<>();
 		for(int i=0 ; i<listID.length; i++) {
-			System.out.println("==================  "+i);
 			MessagingEntity entity =  repo.findById(listID[i]).orElse(null);
 			if(entity!=null) {
 				ResponceMessagingDto dto = entityToResponseDto(entity);
 				list.add(dto);
 			}
 		}
-		return (ResponceMessagingDto[]) list.toArray();
-//		return null;
+		return  list.toArray();
 	}
 
 }

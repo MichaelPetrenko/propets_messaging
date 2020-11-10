@@ -11,6 +11,6 @@ public interface MessageManagement {
 	ResponceMessagingDto delete(String id); //get ret x-token
 	ResponceMessagingDto getPostById(String id); //get ret x-token;
 	ResponcePageableDto viewPostPageable(int items, int currentPage); //get ret x-token;
-	ResponceMessagingDto[] getUserData(String[] listID);
+	Object[] getUserData(String[] listID);
 	
 }
