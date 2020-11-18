@@ -27,7 +27,8 @@ public class MessageController {
 	@PostMapping(value = MessageApiConstants.CREATE_POST)
 	ResponceMessagingDto createPost(@RequestBody RequestCreatePostDto dto, 
 			@PathVariable("login") String login, HttpServletRequest request) {
-		return messageService.createPost(dto, login);
+		String xToken = request.getHeader("X-Token");
+		return messageService.createPost(dto, login, xToken);
 	};
 	
 	@PutMapping(value = MessageApiConstants.UPDATE_POST)
