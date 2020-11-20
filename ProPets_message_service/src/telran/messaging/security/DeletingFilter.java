@@ -51,8 +51,6 @@ public class DeletingFilter implements Filter {
 				
 				try {
 					String[] cred = tvr.decompileToken(xToken);
-					System.out.println("============"+cred[0]);
-					System.out.println("============"+loginEntity);
 					if(!cred[0].equalsIgnoreCase(loginEntity)) {
 						response.sendError(400);
 						return;

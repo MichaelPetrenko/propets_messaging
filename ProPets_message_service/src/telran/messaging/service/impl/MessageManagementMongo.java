@@ -139,18 +139,60 @@ public class MessageManagementMongo implements MessageManagement {
 	}
 
 	@Override
-	public ResponceMessagingDto delete(String id) {
+	public ResponceMessagingDto delete(String id, String xToken) {
 
 		MessagingEntity entity = repo.findById(id).orElse(null);
 		if (entity == null) {
 			throw new NotExistsException();
 		}
-
+		try {
+			removePostFromActivites(entity.userLogin, id, xToken);
+		} catch (Exception e) {
+			e.getStackTrace();
+			if (e instanceof Forbidden) {
+				throw new ForbiddenException();
+			} else if (e instanceof Unauthorized) {
+				System.out.println("if unauth case");
+				throw new BadTokenException();
+			} else if (e instanceof BadRequest) {
+				throw new BadRequestException();
+			} else
+			throw new NotExistsException();
+		}
 		repo.deleteById(id);
 		ResponceMessagingDto resp = new ResponceMessagingDto(entity.id, entity.userLogin, entity.userName,
 				entity.avatar, entity.datePost, entity.text, entity.images);
 
 		return resp;
+	}
+
+	private void removePostFromActivites(String userLogin, String id, String xToken) {
+		String endpointRemoveActivity = 
+				"https://propets-me.herokuapp.com/" //accounting service
+				+ "account/en/v1/" 
+				+ userLogin 
+				+ "/activity/"																	
+				+ id;
+
+		URI uri;
+		try {
+			uri = new URI(endpointRemoveActivity);
+		} catch (Exception e) {
+			System.out.println("Error URI");
+			throw new BadURIException();
+		}
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+		headers.set("X-Token", xToken);
+		headers.set("X-ServiceName", "message");
+		
+		HttpEntity<Void> request = new HttpEntity<>(headers);
+		@SuppressWarnings("unused")
+		ResponseEntity<Void> responceFromAddUserActivity = restTemplate.exchange(uri, HttpMethod.DELETE, request,
+				Void.class);
+		
 	}
 
 	@Override

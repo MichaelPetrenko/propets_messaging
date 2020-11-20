@@ -37,8 +37,9 @@ public class MessageController {
 	}
 	
 	@DeleteMapping(value = MessageApiConstants.DELETE_POST)
-	ResponceMessagingDto delete(@PathVariable("id") String id) { 
-		return messageService.delete(id);
+	ResponceMessagingDto delete(@PathVariable("id") String id, HttpServletRequest request) {
+		String xToken = request.getHeader("X-Token");
+		return messageService.delete(id, xToken);
 	}
 	
 	@GetMapping(value = MessageApiConstants.GET_POST_BY_ID)
