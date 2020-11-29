@@ -30,7 +30,7 @@ public class DeletingFilter implements Filter {
 		String path = request.getServletPath();
 
 		if (
-			(path.matches("/message/en/v1/[^/]+") && request.getMethod().equalsIgnoreCase("DELETE"))
+			(path.matches("/en/v1/[^/]+") && request.getMethod().equalsIgnoreCase("DELETE"))
 		 ) {
 				TokenValidationRequestor tvr = new TokenValidationRequestor();
 
@@ -40,7 +40,7 @@ public class DeletingFilter implements Filter {
 					return;
 				}
 				
-				String postId = request.getServletPath().split("/")[4];
+				String postId = request.getServletPath().split("/")[3];
 				MessagingEntity entity = repo.findById(postId).orElse(null);
 				if(entity==null) {
 					response.sendError(401);

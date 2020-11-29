@@ -87,7 +87,7 @@ public class MessageManagementMongo implements MessageManagement {
 	private void addPostToActivites(String userLogin, String xToken, String id) {
 		String endpointAddActivity = 
 				"https://propets-me.herokuapp.com/" 
-				+ "account/en/v1/" 
+				+ "en/v1/" 
 				+ userLogin 
 				+ "/activity/"
 				+ id;
@@ -168,8 +168,8 @@ public class MessageManagementMongo implements MessageManagement {
 
 	private void removePostFromActivites(String userLogin, String id, String xToken) {
 		String endpointRemoveActivity = 
-				"https://propets-me.herokuapp.com/" //accounting service
-				+ "account/en/v1/" 
+				"https://propets-me.herokuapp.com/"
+				+ "en/v1/" 
 				+ userLogin 
 				+ "/activity/"																	
 				+ id;
