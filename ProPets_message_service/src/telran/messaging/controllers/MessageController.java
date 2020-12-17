@@ -56,11 +56,4 @@ public class MessageController {
 	Object[] getUserData(@RequestBody String[] listID) {
 		return messageService.getUserData(listID);
 	}
-	
-	// "/wakeup"
-	@GetMapping(value = MessageApiConstants.WAKEUP)
-	void wakeUp() {
-		return;
-	}
-	
 }

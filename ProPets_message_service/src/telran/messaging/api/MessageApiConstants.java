@@ -19,7 +19,6 @@ public interface MessageApiConstants {
 //	String VIEW_POST_PAGEABLE = 				"/message/en/v1/view/?itemsOnPage=10&currentPage=0";
 	
 	String GET_USER_DATA = 						"/en/v1/userdata";
-	String WAKEUP = 							"/wakeup";
 
 
 }
