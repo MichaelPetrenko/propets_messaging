@@ -210,7 +210,7 @@ public class MessageManagementMongo implements MessageManagement {
 	@Override
 	public ResponcePageableDto viewPostPageable(int items, int currentPage) {
 		Pageable pageable = PageRequest.of(currentPage, items);
-		repo.findAll(pageable);
+		repo.findAll(pageable);//>>>
 
 		int itemsTotal = repo.findAll(pageable).getNumberOfElements();
 		List<MessagingEntity> postsList = repo.findAll(pageable).toList();
